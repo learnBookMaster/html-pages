@@ -18,29 +18,28 @@
         <ion-col col-12 class="question">
           {{pageIndex+1}}. {{testJson[pageIndex].question}}
         </ion-col>
-        <ion-col col-12 class="answer"><input type="radio" name="{{pageIndex}}option1" id="{{pageIndex}}option1" [checked]="testJson[pageIndex].answered=='a'" (change)="onAnswerSelect('a')"> <label for="{{pageIndex}}option1"> a. {{testJson[pageIndex].options.a}}</label></ion-col>
-        <ion-col col-12 class="answer"><input type="radio" name="{{pageIndex}}option1" id="{{pageIndex}}option1" [checked]="testJson[pageIndex].answered=='b'" (change)="onAnswerSelect('b')"> <label for="{{pageIndex}}option1"> b. {{testJson[pageIndex].options.b}} </label> </ion-col>
-        <ion-col col-12 class="answer"><input type="radio" name="{{pageIndex}}option1" id="{{pageIndex}}option1" [checked]="testJson[pageIndex].answered=='c'" (change)="onAnswerSelect('c')"> <label for="{{pageIndex}}option1"> c. {{testJson[pageIndex].options.c}}</label></ion-col>
-        <ion-col col-12 class="answer"><input type="radio" name="{{pageIndex}}option1" id="{{pageIndex}}option1" [checked]="testJson[pageIndex].answered=='d'" (change)="onAnswerSelect('d')"> <label for="{{pageIndex}}option1"> d. {{testJson[pageIndex].options.d}}</label></ion-col>
+        <ion-col col-12 class="answer" (click)="onAnswerSelect('a')"><input type="radio" name="{{pageIndex}}option1" id="{{pageIndex}}option1" [checked]="testJson[pageIndex].answered=='a'" (change)="onAnswerSelect('a')"> {{testJson[pageIndex].options.a}} </ion-col>
+        <ion-col col-12 class="answer" (click)="onAnswerSelect('b')"><input type="radio" name="{{pageIndex}}option1" id="{{pageIndex}}option1" [checked]="testJson[pageIndex].answered=='b'" (change)="onAnswerSelect('b')"> {{testJson[pageIndex].options.b}} </ion-col>
+        <ion-col col-12 class="answer" *ngIf="testJson[pageIndex].options.c!=''" (click)="onAnswerSelect('c')"><input type="radio" name="{{pageIndex}}option1" id="{{pageIndex}}option1" [checked]="testJson[pageIndex].answered=='c'" (change)="onAnswerSelect('c')"> {{testJson[pageIndex].options.c}} </ion-col>
+        <ion-col col-12 class="answer" *ngIf="testJson[pageIndex].options.d!=''" (click)="onAnswerSelect('d')"><input type="radio" name="{{pageIndex}}option1" id="{{pageIndex}}option1" [checked]="testJson[pageIndex].answered=='d'" (change)="onAnswerSelect('d')"> {{testJson[pageIndex].options.d}} </ion-col>
       </ion-row>
       <!-- previous and next button -->
         <ion-row>
-          <ion-col col-3>
-            <button ion-button icon-start small (click)="pickQues('prev')" [disabled]="pageIndex==0">
+          <ion-col col-2>
+            <button ion-button icon-only small (click)="pickQues('prev')" [disabled]="pageIndex==0">
               <ion-icon name="arrow-back"></ion-icon>
-              Previous
+
             </button>
           </ion-col>
-          <ion-col col-1></ion-col>
-          <ion-col col-5>
+          <ion-col col-8 class="alignCenter">
             <button ion-button icon-start small (click)="submitTest()" [disabled]="disableSubmitTest">
               <ion-icon name="paper"></ion-icon>
               Submit Test
             </button>
           </ion-col>
-          <ion-col col-3>
-            <button ion-button icon-end small (click)="pickQues('next')" [disabled]="pageIndex==testJson.length-1">
-              Next
+          <ion-col col-2>
+            <button ion-button icon-only small (click)="pickQues('next')" [disabled]="pageIndex==testJson.length-1">
+
               <ion-icon name="arrow-forward"></ion-icon>
             </button>
           </ion-col>

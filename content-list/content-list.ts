@@ -97,16 +97,16 @@ export class ContentListPage {
   }
 
   goHome(){
-    var minutes;
+    var diff;
     if(this.topic == 'Android'){
 
           /*firbase analysis code*/
 
             let stopTime:any = new Date();
             var startTime = this.courseTimeCalcServiceAndroid.getStartTime();
-            var diff = Math.abs(startTime - stopTime);
+            diff = Math.abs(startTime - stopTime);
             var seconds = Math.floor((diff/1000));
-            minutes = Math.floor((diff/1000)/60);
+            var minutes = Math.floor((diff/1000)/60);
             var hour = minutes/60;
             var days = Math.round(minutes/1440);
 
@@ -129,7 +129,7 @@ export class ContentListPage {
 
                  let stopTime:any = new Date();
                  var startTime = this.courseTimeCalcServiceCordova.getStartTime();
-                 var diff = Math.abs(startTime - stopTime);
+                 diff = Math.abs(startTime - stopTime);
                  var seconds = Math.floor((diff/1000));
                  minutes = Math.floor((diff/1000)/60);
                  var hour = minutes/60;
@@ -153,7 +153,7 @@ export class ContentListPage {
 
   }
   this.navCtrl.setRoot(HomePage,{
-          timeSpent: minutes+' min',
+          timeSpent: diff,
           topic: this.topic
       });
   }
@@ -177,8 +177,8 @@ export class ContentListPage {
         console.log("Minutes - " +minutes);
         console.log("Hour - " +hour);
         console.log("Days - " +days);
-
-          this.firebaseAnalytics.logEvent("Android_Course_Complete", { Actual_Time: minutes+' min', Planned_time: '30 min'})
+          var displayTime = new Date(diff).toISOString().substr(14, 5);
+          this.firebaseAnalytics.logEvent("Android_Course_Complete", { Actual_Time: displayTime, Planned_time: '30 min'})
             .then((res: any) => console.log(res))
             .catch((error: any) => console.error(error));
 
@@ -202,8 +202,8 @@ export class ContentListPage {
              console.log("Minutes - " +minutes);
              console.log("Hour - " +hour);
              console.log("Days - " +days);
-
-             this.firebaseAnalytics.logEvent("Cordova_Course_Complete", { Actual_Time: minutes+' min', Planned_time: '30 min'})
+             var displayTime = new Date(diff).toISOString().substr(14, 5);
+             this.firebaseAnalytics.logEvent("Cordova_Course_Complete", { Actual_Time: displayTime, Planned_time: '30 min'})
                                   .then((res: any) => console.log(res))
                                   .catch((error: any) => console.error(error));
 
